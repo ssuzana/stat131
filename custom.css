@@ -1,0 +1,17 @@
+.my-one-page-font {
+  font-size: 17px;
+}
+
+.theorem-box {
+  padding: 0em 0.5em;
+  background: #e6f3ff;
+  border: 1px solid #b3d9ff;
+  border-radius: 5px;
+}
+
+.definition-box {
+  padding: 0em 0.5em;
+  background: #fff2e6;
+  border: 0.5px solid #ffcc99;
+  border-radius: 5px;
+}
