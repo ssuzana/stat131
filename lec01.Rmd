@@ -318,10 +318,10 @@ A "standard" deck of playing cards consists of 52 Cards in each of the 4 suits o
 
 This is $${13\choose 1}{4\choose 4}{48\choose 1} = 624.$$
 
-There are ${52\choose 5}$ different hands of five cards. Hence, the
+There are ${52\choose 5}=2598960$ different hands of five cards. Hence, the
 probability that a hand contains four cards of one kind is:
 
-$${13\choose 1}{4\choose 4}{48\choose 1} / {52\choose 5}\approx 0.00024.$$
+$$\frac{624}{2598960}\approx 0.00024.$$
 
 ---
 ### The birthday problem
@@ -507,9 +507,14 @@ $\small{p(A\cup B\cup C)=p(A)+p(B)+p(C)-p(A\cap B)-p(A\cap C)-p(B\cap C)+p(A \ca
    
    (b) How many ways are there to split 12 people into 3 teams, where each team has 4 people?
    
-4. (Full House) What is the probability that a poker hand contains a full house, that is, three of one kind and two of another kind?   
+<!--4. (Full House) What is the probability that a poker hand contains a full house, that is, three of one kind and two of another kind?-->
 
 ---
 
-Thank you!
+**Answers:** **1.** (a) $8\cdot 10^6=8000000$ (b) $8\cdot 10^6-10^4=7990000$
+**2.** A sum of 11 is twice as likely as a sum of 12; the probability is 1/18 for the former, and 1/36 for the latter.
+**3.** (a) $\frac{{12\choose 2}\cdot {10\choose 5}}{2} = 8316$
+(b) $\frac{{12\choose 4}\cdot {8\choose 4}}{3!} = 5775$
+
+<!--**4.** $\frac{{13\choose 1}{4\choose 4}{48\choose 1}}{{52\choose 5}}\approx 0.00024.$-->
 
