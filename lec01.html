@@ -41,6 +41,10 @@ Teaching Assistant:
 
 - Peter Trubey (ptrubey@ucsc.edu)
 
+LSS Tutor:
+
+- Debi Majumdar (demajumd@ucsc.edu)
+
 ---
 
 ## Materials
@@ -581,22 +585,53 @@ For three events, inclusion-exclusion says
 
 ---
 
+**Example** A survey was taken of a group's viewing habits of sporting events on TV during the last year. Let 
+`\(A\)` = {watched football}, `\(B\)` = {watched basketball}, and `\(C\)` = {watched baseball}. 
+
+The results indicate that if a person is selected at random from the surveyed group, then 
+
+`\(p(A) = 0.43, p(B) = 0.40, p(C) = 0.32,\)`
+
+`\(p(A \cap B) = 0.29, p(A\cap C) = 0.22, P(B \cap C) = 0.20,\)` and 
+
+`\(P(A \cap B \cap C) = 0.15.\)` 
+
+--
+
+It then follows that `\(p(A\cup B \cup C) =\)`
+
+`\(=p(A)+p(B)+p(C)-p(A\cap B)−P(A\cap C) −P(B\cap C)+P(A\cap B \cap C)\)`
+
+`\(= 0.43+0.40+0.32−0.29−0.22−0.20+0.15 = 0.59\)`
+
+is the probability that this person watched at least one of these sports.
+
+---
+
 ## Additional Practice Problems*
 .footnote[*Solutions will be discussed in lecture, if time permits.]
 
-1.  (a) How many 7-digit phone numbers are possible, assuming that the first digit can’t be a 0 or a 1?
+**1.**  **(a)** How many 7-digit phone numbers are possible, assuming that the first digit can’t be a 0 or a 1?
     
-    (b) How many 7-digit phone numbers are possible, assuming that the first digit can’t be a 0 or a 1 and that the phone number is not allowed to start with 911?
+  **(b)** How many 7-digit phone numbers are possible, assuming that the first digit can’t be a 0 or a 1 and that the phone number is not allowed to start with 911?
     
-2. (Leibniz’s mistake) If we roll two fair dice, which is more likely: a sum of 11 or a sum of 12?  
+**2.** (Leibniz’s mistake) If we roll two fair dice, which is more likely: a sum of 11 or a sum of 12?  
 
-3. (a) How many ways are there to split 12 people into 3 teams, where one team has 2 people, and the other two teams have 5 people each?
+**3.** **(a)** How many ways are there to split 12 people into 3 teams, where one team has 2 people, and the other two teams have 5 people each?
    
-   (b) How many ways are there to split 12 people into 3 teams, where each team has 4 people?
+   **(b)** How many ways are there to split 12 people into 3 teams, where each team has 4 people?
    
-4. (Four of a Kind Hand in Poker &lt;img src="img/four-of-a-kind.png" height="30px" /&gt;) Find the probability that a hand of five cards in poker contains four cards of one kind. 
+**4.** (Four of a Kind Hand in Poker &lt;img src="img/four-of-a-kind.png" height="30px" /&gt;) Find the probability that a hand of five cards in poker contains four cards of one kind. 
 
+---
 
+**5.** A car repair can be performed either on time or late and
+either satisfactorily or unsatisfactorily. The probability of a repair being on time and satisfactory is 0.26. The probability of a repair being on time is 0.74. The probability of a repair being satisfactory is 0.41.  
+What is the probability of a repair being late and unsatisfactory?
+
+**6.** In a certain city, three newspapers A, B, and C are published. Suppose that 60 percent of the families in the city subscribe to newspaper A, 40 percent of the families subscribe to newspaper B, and 30 percent subscribe to newspaper C. Suppose also that 20 percent of the families subscribe to both A and B, 10 percent subscribe to both A and C, 20 percent subscribe to both B and C, and 5 percent subscribe to all three newspapers A, B, and C. What percentage of the families in the city subscribe to at least one of the three newspapers?
+  &lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;!--**Answers:** **1.** (a) `\(8\cdot 10^6=8000000\)` (b) `\(8\cdot 10^6-10^4=7990000\)`
 **2.** A sum of 11 is twice as likely as a sum of 12; the probability is 1/18 for the former, and 1/36 for the latter.
@@ -613,7 +648,15 @@ This is `$${13\choose 1}{4\choose 4}{48\choose 1} = 624.$$`
 There are `\({52\choose 5}=2598960\)` different hands of five cards. Hence, the
 probability that a hand contains four cards of one kind is:
 
-`$$\frac{624}{2598960}\approx 0.00024.$$`--&gt;
+`$$\frac{624}{2598960}\approx 0.00024.$$`
+**5.** Let the event O be an on time repair and let the event S be a satisfactory repair. 
+It is known that `\(P(O \cap S) = 0.26, P(O) = 0.74\)` and `\(P(S) = 0.41.\)`
+We want to find `\(P(O^c \cap S^c).\)`
+Since the event `\(O^c \cap S^c\)` can be written `\((O \cup S)^c\)` it follows that
+`\(P(O^c \cap S^c)=1−P(O \cup S)\)`
+`\(= 1 − (P(O) + P(S) − P(O \cap S))\)`
+`\(= 1 − (0.74 + 0.41 − 0.26) = 0.11.\)`
+**6.** 0.85--&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
