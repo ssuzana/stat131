@@ -2,17 +2,18 @@
 title: "STAT 131 - Intro to Probability Theory"
 author: "Suzana Șerboi, Ph.D."
 institute: Mathematics and Statistics, UCSC
-subtitle: "Lecture 1: Probability and Counting"
-
 output:
   xaringan::moon_reader:
-    css: ["rutgers.css", "tamu-fonts", "custom.css"]
+    css:
+    - rutgers.css
+    - "tamu-fonts"
+    - custom.css
     lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
- 
+subtitle: 'Lecture 1: Probability and Counting'
 ---    
 
 ## Teaching Team 
@@ -228,6 +229,8 @@ Many basic probability problems involve counting.
 
 **Example (Ice cream cones)** Suppose you are buying an ice cream cone. You can choose whether to have a cake cone or a waffle cone, and whether to have chocolate, vanilla, or strawberry as your flavor. 
 
+--
+
 .pull-left[This decision process can be visualized with a tree diagram.
 Regardless of whether the type of cone or the flavor is chosen first, there are $2\cdot 3 = 3 \cdot 2 = 6$ possibilities.
 ]
@@ -247,7 +250,11 @@ We define $0! = 1$; that is, we say that zero positions can be filled with zero 
 Each of the $n!$ arrangements (in a row) of $n$ different objects is called a **permutation** of the $n$ objects.
 ]
 
+--
+
 For example, $3, 5, 1, 2, 4$ is a permutation of $1, 2, 3, 4, 5$.
+
+--
 
 **Example** The number of permutations of the four letters $a, b, c,$ and $d$ is $$4! = 4\cdot 3\cdot 2\cdot 1 = 24.$$ 
 
@@ -261,9 +268,12 @@ be performed in four ways.
 **Sampling with replacement** Consider $n$ objects and making $k$ choices from them, one at a time with replacement (i.e., choosing a certain object does not preclude it from being chosen again). Then there are $n^k$ possible outcomes (where order matters, in the sense that, e.g., choosing object 3 and then object 7 is counted as a different outcome than choosing object 7 and then object 3.)
 ]
 
+--
 
 For example, imagine a jar with $n$ balls, labeled from $1$ to $n$. We sample balls one at a time with replacement, meaning that each time a ball is chosen, it is returned to the jar. Each sampled ball is a sub-experiment with $n$ possible outcomes, and there are $k$ sub-experiments. Thus, by the multiplication rule there are 
 $$\underbrace{n\cdot n\cdot \ldots \cdot n}_{k \text{ times}} = n^k$$ ways to obtain a sample of size $k$.
+
+--
 
 **Example** A die is rolled seven times. Note that rolling a die is equivalent to sampling with replacement from the set $\{1,2,3,4,5,6\}.$
 The number of possible ordered samples is $6^7 = 279,936.$
@@ -274,10 +284,14 @@ The number of possible ordered samples is $6^7 = 279,936.$
 It is equivalent to the number of permutations of $n$ objects taken $k$ at a time and is denoted by $P(n,k)$ or $_{n}P_{k}$.
 ]
 
+--
+
 In terms of factorials, we have
 $$P(n,k) = \frac{n(n − 1) \ldots (n − k + 1)(n-k)\cdot \ldots \cdot 2\cdot 1}{(n-k)\cdot \ldots \cdot 2\cdot 1} = \frac{n!}{(n-k)!}$$
 
 Again, imagine a jar with $n$ balls, labeled from $1$ to $n$. We sample balls one at a time without replacement, meaning that each time a ball is chosen, it is NOT returned to the jar. The number of possible choices decreases by 1 each time. The above result follows directly from the multiplication rule.
+
+--
 
 **Example** The number of possible four-letter code words, selecting from the 26 letters in the alphabet, in which all four letters are different is
 
@@ -291,9 +305,15 @@ $$26 \cdot 25 \cdot 24 \cdot 23 = 358,800.$$
 
 ]
 
+--
+
 Sets and subsets are by definition **unordered**, e.g., $\{3, 1, 4\}=\{4, 1, 3\}$, so we are counting the number of ways to choose $k$ objects out of $n$, without replacement and without distinguishing between the different orders.
 
+--
+
 There are $n\cdot(n − 1)\cdot\ldots\cdot(n − k + 1)$ ways to make an ordered choice of $k$ elements without replacement. This overcounts each subset of interest by a factor of $k!$ (since we don’t care how these elements are ordered), so we can get the correct count by dividing by $k!$.
+
+--
 
 **Example** The number of possible five-card hands (in five-card poker) drawn from a deck of 52 playing cards is ${52\choose 5}$.
 ```{r}
@@ -309,19 +329,27 @@ A "standard" deck of playing cards consists of 52 Cards in each of the 4 suits o
 
 ---
 
-**Example (Four of a kind)** Find the probability that a hand of five cards in poker contains four cards of one kind.
+.pull-left[**Example (Full House )**  What is the probability that a poker hand contains a full house, that is, three of one kind and two of another kind?
+]
+.pull-right[<img src="img/full-house.png" height="80px" />
+] 
 
-**Solution:** By the product rule, the number of hands of five cards with four cards of one kind is the product of:
-- the number of ways to pick one kind,
-- the number of ways to pick the four of this kind out of the four in the deck of this kind,
-- and the number of ways to pick the fifth card.
+--
 
-This is $${13\choose 1}{4\choose 4}{48\choose 1} = 624.$$
+**Solution:** Note that the order of the two kinds matters, because, for instance, three queens and two aces is different from three aces and two queens.
 
-There are ${52\choose 5}=2598960$ different hands of five cards. Hence, the
-probability that a hand contains four cards of one kind is:
+- There are 13 choices for what kind we have three of. 
+- There are ${4\choose 3}$ ways to choose three cards out of four of a given kind. 
+- Then there are 12 choices for what kind we have two of, and 
+- ${4\choose 2}$ ways to choose two of that kind. 
 
-$$\frac{624}{2598960}\approx 0.00024.$$
+--
+
+Thus, by the multiplication rule, the number of hands containing a full house is
+$13\cdot {4\choose 3} \cdot 12\cdot {4\choose 2} = 3,744.$
+
+Because there are ${52\choose 5} = 2,598,960$ poker hands, the probability is
+$$p(\text{full house}) = \frac{3,744}{2,598,960} ≈ 0.0014.$$
 
 ---
 ### The birthday problem
@@ -332,23 +360,28 @@ The birthday problem, a classic probability puzzle, illustrates both sampling wi
 
 Assumptions: exclude February 29th, assume the other 365 days are equally likely and assume birthdays are independent (no twins).
 
+--
+
 .pull-left[
 **Pigeonehole Principle** If $k$ objects are placed into $n$ boxes, where $k > n$, then there must be at least one box that contains more than one object.]
 .pull-right[
 <img src="img/pigeons.jpeg" height="160px" />]
 
+--
 
 In the birthday problem (assuming there are 365 days in a year), with 366 or more people there is guaranteed to be at least one birthday match. So, when $k > 365$, the probability is $1$.
 
 ---
 ### The birthday problem (cont.)
 
-Let $k\leq 365$. A good strategy when trying to find the probability of an event is to start by thinking about whether it will be easier to find the probability of the event or the probability of its complement. In this case, it is easier to find the probability of the complement, i.e. **no two people have the same birthday**. Then the probability of having a birthday match will be 
+Let $k\leq 365$. A good strategy when trying to find the probability of an event is to start by thinking about whether it will be easier to find the probability of the event or the probability of its complement. In this case, it is easier to find the probability of the complement, i.e. **no two people have the same birthday**.  
+--
+Then the probability of having a birthday match will be 
 
 $$1-P(``\text{no match"})
 = 1 - \frac{365\cdot 364 \cdot \ldots \cdot [365-(k-1)]}{365^k}$$
 The first value of $k$ for which the probability exceeds $0.5$ or $50\%$ is $k=23$.
-
+--
 In R, the following code uses `prod` (which gives the product of a vector) to calculate the probability of at least one birthday match in a group of 23 people:
 
 ```{r}
@@ -370,6 +403,8 @@ In the above plot, we see the first value of $k$ for which the probability of a 
 
 Although not needed as often in the study of probability, it is interesting to count the number of possible samples of size $k$ that can be selected out of $n$ objects when **the order is irrelevant** and when sampling **with replacement**.
 <center><img src="img/sampling-unordered-1.png" height="150px" /></center>
+
+--
 
 .pull-left[
 To count the number of possible outcomes, notice that what we are really doing here is placing $n-1=2-1=1$ dividers between $k$ elements.
@@ -404,6 +439,8 @@ by choosing the appropriate probability function $p$.
 ---
 
 **Example** For a fair coin, the probability that heads comes up when the coin is flipped equals the probability that tails comes up, so the outcomes are equally likely. Consequently, we assign the probability 1∕2 to each of the two possible outcomes. That is, $p(H) = p(T) = 1∕2$, where $H$ is the event that heads comes up and $T$ is the event that tails comes up.   
+
+--
 What probabilities should be assigned to these outcomes when the coin is biased so that heads comes up twice as often as tails?
 
 --
@@ -411,7 +448,7 @@ What probabilities should be assigned to these outcomes when the coin is biased 
 **Solution:** 
 For the biased coin we have $p(H) = 2p(T)$.   
 Because $p(S) = p(H \cup T) = p(H) + p(T) = 1$, it follows that $2p(T) + p(T) = 3p(T) = 1$.  
-We conclude that $p(T) = 1∕3$ and $p(H) = 2∕3$.  
+We conclude that $p(T)=\frac{1}{3}$ and $p(H)=\frac{2}{3}$.  
 
 --
 
@@ -430,7 +467,11 @@ $p(E) = p(1)+p(3)+p(5) = \frac{1}{7} + \frac{2}{7}+ \frac{1}{7} = \frac{4}{7}.$
 
 * The **frequentist** view of probability is that it represents a long-run frequency over a large number of repetitions of an experiment: if we say a coin has probability  of Heads, that means the coin would land Heads 50% of the time if we tossed it over and over and over.
 
+--
+
 * The **Bayesian** view of probability is that it represents a degree of belief about the event in question, so we can assign probabilities to hypotheses like ''candidate A will win the election" or ''the defendant is guilty'' even if it isn't possible to repeat the same election or the same crime over and over again.
+
+--
 
 The Bayesian and frequentist perspectives are complementary, and both will be helpful for developing intuition. 
 
@@ -448,32 +489,55 @@ A **probability function** $p$ has the following properties, for events $A$ and 
 3. $p (A \cup B) = p (A) + p (B) - p (A \cap B)$.
 ]
 
+--
+
 Proof of property 1: ** $p(A^c) = 1 - p(A)$**
 
 Since $A$ and $A^c$ are disjoint and their union is $S$, so the 2nd axiom gives:
 
 $$P(S) = P(A \cup A^c) = P(A) + P(A^c)$$
-Also, $P(S) = 1$ by axiom 1. Thus, $P(A) + P(A^c) = 1$
+Also, $P(S) = 1$ by axiom 1.
+
+Thus, $P(A) + P(A^c) = 1.$
 
 ---
 
 Proof of property 2: **If $A \subseteq B$, then $p(A) \leq  p(B)$.**
 
-If $A \subseteq B$, then we can write $B$ as the union of $A$ and $B \cap A^c$, where this last event is the part of $B$ not also in $A$. Since $A$ and $B \cap A^c$ are disjoint, we can apply the 2nd axiom:
+If $A \subseteq B$, then we can write $B$ as the union of $A$ and $B \cap A^c$, where this last event is the part of $B$ not also in $A$. 
 
-$$P(B) = P(A \cup (B \cap A^c)) = P(A) + P(B \cap A^c).$$
-By definition, probability is non-negative, so $P(B \cap A^c) \geq 0$, thus $P(B) \geq P(A)$
+<center>
+<img src="img/probability-prop-1.png" height="200px" />
+</center>
 
 --
 
+Since $A$ and $B \cap A^c$ are disjoint, we can apply the 2nd axiom:
+
+$$P(B) = P(A \cup (B \cap A^c)) = P(A) + \underbrace{P(B \cap A^c)}_{\geq 0}.$$
+By definition, probability is non-negative, so $P(B \cap A^c) \geq 0$, thus $$P(B) \geq P(A).$$
+
+---
+
 Proof of property 3: ** $p (A \cup B) = p (A) + p (B) - p (A \cap B)$.**
 
-We can write $P(A \cup B)$ as the union of two disjoint events: $A$ and $B \cap A^c$. Then: 
+We can write $A \cup B$ as the union of two disjoint events: $A$ and $B \cap A^c$.
 
-$$P(A \cup B) = P(A \cup (B \cap A^c)) = P(A) + P(B \cap A^c).$$
-Now we need to show that: $P(B \cap A^c) = P(B) - P(A \cap B)$. For that, we can use the 2nd axiom:
+<center>
+<img src="img/probability-prop-2.png" height="200px" />
+</center>
 
-$P(A \cap B) + P(B \cap A^c) = P(B)$, as $A \cap B$ and $B \cap A^c$ are disjoint; thus $P(B \cap A^c) = P(B) - P(A \cap B)$. 
+Then $$P(A \cup B) = P(A \cup (B \cap A^c)) = P(A) + P(B \cap A^c).$$
+
+--
+
+Now we need to show that: $P(B \cap A^c) = P(B) - P(A \cap B)$. 
+
+For that, we can use the 2nd axiom:
+
+$P(A \cap B) + P(B \cap A^c) = P(B)$, as $A \cap B$ and $B \cap A^c$ are disjoint and their union is $B$.
+
+Thus $P(B \cap A^c) = P(B) - P(A \cap B)$. 
 
 ---
 
@@ -488,14 +552,14 @@ For three events, inclusion-exclusion says
 
 $\small{p(A\cup B\cup C)=p(A)+p(B)+p(C)-p(A\cap B)-p(A\cap C)-p(B\cap C)+p(A \cap B\cap C)}$
 
-
 <center>
 <img src="img/inclusion-exclusion.png" height="200px" />
 </center>
 
 ---
 
-## Additional Practice Problems
+## Additional Practice Problems*
+.footnote[*Solutions will be discussed in lecture, if time permits.]
 
 1.  (a) How many 7-digit phone numbers are possible, assuming that the first digit can’t be a 0 or a 1?
     
@@ -507,13 +571,23 @@ $\small{p(A\cup B\cup C)=p(A)+p(B)+p(C)-p(A\cap B)-p(A\cap C)-p(B\cap C)+p(A \ca
    
    (b) How many ways are there to split 12 people into 3 teams, where each team has 4 people?
    
-<!--4. (Full House) What is the probability that a poker hand contains a full house, that is, three of one kind and two of another kind?-->
+4. (Four of a Kind Hand in Poker <img src="img/four-of-a-kind.png" height="30px" />) Find the probability that a hand of five cards in poker contains four cards of one kind. 
 
----
 
-**Answers:** **1.** (a) $8\cdot 10^6=8000000$ (b) $8\cdot 10^6-10^4=7990000$
+
+<!--**Answers:** **1.** (a) $8\cdot 10^6=8000000$ (b) $8\cdot 10^6-10^4=7990000$
 **2.** A sum of 11 is twice as likely as a sum of 12; the probability is 1/18 for the former, and 1/36 for the latter.
 **3.** (a) ${12\choose 2}\cdot {10\choose 5}/{2} = 8316$
 (b) ${12\choose 4}\cdot {8\choose 4}/3! = 5775$
 
+**4.** By the product rule, the number of hands of five cards with four cards of one kind is the product of:
+- the number of ways to pick one kind,
+- the number of ways to pick the four of this kind out of the four in the deck of this kind,
+- and the number of ways to pick the fifth card.
 
+This is $${13\choose 1}{4\choose 4}{48\choose 1} = 624.$$
+
+There are ${52\choose 5}=2598960$ different hands of five cards. Hence, the
+probability that a hand contains four cards of one kind is:
+
+$$\frac{624}{2598960}\approx 0.00024.$$-->
