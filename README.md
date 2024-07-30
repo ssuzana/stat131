@@ -11,7 +11,7 @@ To be updated.
   </tr>
   <tr>
     <td width="20%">  1 </td>
-    <td width="30%">  <a href="lec01.html"> Lecture 1  </a>  </td>
+    <td width="30%">  Lecture 1: <a href="lec01.html"> html </a> | <a href="lec01.pdf"> pdf </a> </td>
     <td width="50%">  Probability and Counting </td>
   </tr>
  </table>
