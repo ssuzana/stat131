@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STAT 131 - Intro to Probability Theory</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Suzana Șerboi, Ph.D." />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="rutgers.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# STAT 131 - Intro to Probability Theory
+]
+.subtitle[
+## Lecture 2: Conditional Probability
+]
+.author[
+### Suzana Șerboi, Ph.D.
+]
+.institute[
+### Mathematics and Statistics, UCSC
+]
+
+---
+
+### Thinking conditionally
+
+
+&lt;!--* Whenever we observe new evidence or data, we acquire information that may affect our uncertainties.--&gt;
+
+Conditional probability addresses the fundamental question of how we should update our beliefs based on the evidence we observe. 
+
+You could think of every probability being conditional, whether or not it's written explicitly. For example, consider a morning when we are interested in the event `\(R\)` that it will rain that day.
+
+--
+
+ - Let `\(P(R)\)` represent our initial assessment of the probability of rain before looking outside. 
+ - If we then look outside and see it is cloudy, our probability of rain should presumably increase; we denote this new probability as `\(P(R|C)\)` (read as “probability of `\(R\)` given `\(C\)`”), where `\( C\)` is the event of being cloudy.
+ - When we go from `\(P(R)\)` to `\(P(R|C)\)`, we say we are “conditioning on `\(C\)`”. 
+ - Throughout the day, as we gather more information about the weather conditions, we can continuously update our probabilities.
+ - If we observe events `\(B_1, B_2, \ldots, B_n\)`, then we express our updated conditional probability of rain given this evidence as `\( P(R|B_1, \ldots, B_n)\)`. 
+ - Ultimately, if it does start raining, our conditional probability becomes 1.
+
+
+---
+
+### Conditional Probability Definition
+
+.definition-box[
+Let `\(A\)` and `\(B\)` be events with `\(p(B)&gt;0\)`. The **conditional probability** of `\(A\)` given `\(B\)`, denoted by `\(p(A∣B)\)`, is defined as `$$p(A∣B) = \frac{p(A\cap B)}{p(B)}$$`
+]
+
+
+.pull-left[
+Here `\(A\)` is the event whose uncertainty we want to update, and `\(B\)` is the evidence we observe (or want to treat as given). 
+]
+
+.pull-right[
+ &lt;img src="img/venn-diagram-1.png" height="130px" /&gt;
+] 
+
+--
+
+We call `\(p(A)\)` the **prior probability** of `\(A\)` and `\(p(A|B)\)` the **posterior probability** of `\(A\)` (“prior” means before updating based on the evidence, and “posterior” means after updating based on the evidence).
+
+See an interesting example at https://setosa.io/conditional/
+
+---
+
+
+**Example**
+
+* Standard deck: 52 cards that are shuffled.
+* `\(2\)` cards are drawn randomly, one at a time without replacement.
+* Let `\(A\)` be the event that the first card is a heart.
+* Let `\(B\)` be the event that the second card is red.
+* Find `\(P(A|B)\)` and `\(P(B|A)\)`. Are they equal?
+
+--
+
+Using the naive definition of probability and the multiplication rule:
+
+`$$P(A \cap B) = \frac{13 \cdot 25}{52 \cdot 51}=\frac{25}{204},$$`
+`\(P(A)=\frac{1}{4}\)` and `\(P(B)=\frac{1}{2}\)`.
+
+`$$P(A|B)= \frac{P(A \cap B)}{P(B)}= \frac{25/204}{1/2}=\frac{25}{102},$$`
+`$$P(B|A)= \frac{P(B \cap A)}{P(A)}= \frac{25/204}{1/4}=\frac{25}{51}.$$`
+
+---
+
+
+In general **it is NOT the case that `\(p(A|B) = p(B|A)\)`.**
+
+   People get this confused all the time. For example, saying that there is a very high probability that an animal has four legs if it is a dog, is not the same as the probability that an animal is a dog if it has four legs.
+
+   In this case, the difference between `\(p(A|B)\)` and `\(p(B|A)\)` is obvious but there are cases where it is less obvious. 
+
+   This mistake is made often enough in legal cases that it is sometimes called the prosecutor's fallacy. See Example 2.8.1 page 74.
+
+&lt;center&gt;
+&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/E3VoTTR8MXM?si=mbaREHKM6FumWPFJ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+
+---
+
+A consequence the definition of conditional probability is obtained easily by moving the denominator in the definition to the other side of the equation.
+ 
+.theorem-box[**Probability of the intersection of two events.** For any events `\(A\)` and `\(B\)` with positive probabilities,  $$ P(A \cap B) = P(A|B) \cdot P(B) = P(B|A) \cdot P(A)$$
+]
+
+--
+
+Generalizing to the intersection of `\(n\)` events:
+
+.theorem-box[**Probability of the intersection of `\(n\)` events.** For any events `\(A_1, ...., A_n\)` with `\(P(A_1,A_2,...,A_n) &gt;0,\)`
+`$$\small{P(A_1,\ldots,A_n)=P(A_1)\cdot P(A_2|A_1)\cdot P(A_3|A_1,A_2)\cdot \ldots \cdot P(A_n|A_1,\dots,A_{n-1})}$$`
+]
+
+The commas denote intersections, e.g., `\(P(A_3|A_1,A_2) =P(A_3|A_1 \cap A_2)\)`.
+
+Note that there are `\(n!\)` theorems in one, since we can permute `\(A_1,\dots,A_n\)` in `\(n!\)` different ways.
+
+---
+
+Bayes’ rule is an extremely famous, extremely useful result that relates `\(P(A|B)\)` to `\(P(B|A)\)`. 
+
+Bayes’ rule has important implications and applications in probability and statistics, since it is so often necessary to find conditional probabilities, and often `\(P(B|A)\)` is much easier to find directly than `\(P(A|B)\)` (or vice versa).
+
+
+.theorem-box[**Bayes' rule.**  `$$P(A|B) = \frac{P(B|A)P(A)}{P(B)}$$`
+]
+
+--
+
+Let `\(A\)` and `\(B\)` be events. We may express `\(B\)` as `\(B = (B\cap A)\cup (B\cap A^c)\)`. Since `\(B\cap A\)` and `\(B\cap A^c\)` are clearly mutually exclusive, we have, by 2nd axiom of probability, `\(P(B)=P((B\cap A)\cup (B\cap A^c))=P(B\cap A) +  P(B\cap A^c)\)`
+
+`\(=P(B|A)P(A) + P(B|A)P(A^c)\)`. 
+
+Thus, ** `$$P(B)=P(B|A)P(A) + P(B|A)\left[1-P(A)\right]$$` **
+
+---
+
+**Example.** An insurance company believes that people can be divided into two classes: those who are accident prone and those who are not. The company’s statistics show that an accident-prone person will have an accident at some time within a fixed 1-year period with probability .4, whereas this probability decreases to .2 for a person who is not accident prone. If we assume that 30 percent of the population is accident prone, what is the probability that a new policyholder will have an accident within a year of purchasing a policy?
+
+**Solution.** We shall obtain the desired probability by first conditioning upon whether or not the policyholder is accident prone. Let `\(A_1\)` denote the event that the policyholder will have an accident within a year of purchasing the policy, and let `\(A\)` denote the event that the policyholder is accident prone. Hence, the desired probability is given by
+
+`\(P(A_1) = P(A_1|A)P(A) + P(A_1|A^c)P(A^c) =(.4)(.3) + (.2)(.7) = .26\)`
+
+Suppose that a new policyholder has an accident within a year of purchasing a policy. What is the probability that he or she is accident prone?
+
+Using Bayes' Rule,
+`$$P(A|A_1) = \frac{P(A_1|A)P(A)}{P(A_1)}=(.3)(.4)/(0.26)= 6/13$$` 
+
+---
+
+.pull-left[
+.theorem-box[**Law of total probability (LOTP).** Let `\(A_1, \dots, A_n\)` be a partition of the sample space `\(S\)` (i.e., the `\(A_i\)` are disjoint events and their union is `\(S\)`), with `\(P(A_i)&gt;0\)` for all `\(i\)`. Then:
+`$$P(B) = \sum_{i=1}^n P(B|A_i) P(A_i).$$`
+]  
+]
+.pull.right[
+&lt;img src="img/lotp.gif" height="230px"/&gt;
+]
+
+&lt;br&gt;
+--
+
+**Proof.** Since `\(A_i\)` form a partition of `\(S\)`, we can decompose `\(B\)` as `\(B = (B \cap A_1) \cup (B \cap A_2) \cup \cdots \cup (B \cap A_n).\)`
+
+As we know these pieces are disjoint, we can use the 2nd axiom of probability:
+`$$P(B) = P(B \cap A_1) + P(B \cap A_2) + \cdots + P(B \cap A_n)$$`
+Then we rewrite each intersection:
+`$$P(B) = P(B | A_1)P(A_1) + P(B | A_2)P(A_2) + \cdots + P(B |A_n)P(A_n)$$`
+
+---
+
+**Example (Testing for a rare disease).** A patient is tested for a rare disease (that we know affects `\(1\%\)` of the population). The test result is positive. 
+Let `\(D\)` be the event that the patient has the disease, and `\(T\)` be the event that she tests positive.
+
+Suppose the test is `\(95 \%\)` accurate, i.e. 
+* `\(P(T|D)=0.95\)` (sensitivity or true positive rate) and 
+* `\(P(T^c|D^c)=0.95\)` (specificity or true negative rate).
+
+What is the conditional probability that the patient has the rare disease, given that her test was positive `\(P(D|T)\)`?
+
+--
+
+We can use Bayes' Rule in the first step, and then the LOTP:
+`$$P(D|T)= \frac{P(T|D)P(D)}{P(T)} = \frac{P(T|D)P(D)}{P(T|D)P(D)+{P(T|D^c)P(D^c)}}$$`
+
+Then we plug in the defined values:
+`$$P(D|T)=\frac{0.95\cdot 0.01}{0.95 \cdot 0.01 + 0.05 \cdot 0.99} \approx 0.16.$$`
+
+---
+
+## Conditional probabilities
+
+**Conditional probabilities are probabilities.** Some important results:
+
+* Conditional probabilities are between `\(0\)` and `\(1\)`.
+
+* 1st Axiom: `\(P(S|E)=1\)`, `\(P(\emptyset |E) = 0\)`
+
+* 2nd Axiom: If `\(A_1,A_2,\dots\)` are disjoint, then `$$P(\bigcup_{j=1}^{\infty}A_j|E)=\sum_{j=1}^{\infty}P(A_j|E).$$`
+
+* Complement: `\(P(A^c|E) = 1 - P(A|E).\)`
+
+* Inclusion-exclusion: `\(P(A \cup B|E) = P(A|E) + P(B|E) - P(A \cap B|E).\)`
+
+* Remember `\(A|E\)` is NOT an event. We calculate this assuming that `\(E\)` is already given (it has occurred).
+
+---
+
+**Proof of Axiom 1 for conditional probability:**
+
+* Fix an event `\(E\)`, with `\(P(E) &gt;0\)`, and for any event `\(A\)`, define `\(\tilde{P}(A)=P(A|E)\)`
+* `\(\tilde{P}(\emptyset)=P(\emptyset |E)= \frac{P(\emptyset \cap E)}{P(E)}=0\)` 
+* `\(\tilde{P}(S)=P(S |E)= \frac{P(S \cap E)}{P(E)}=1\)`
+
+--
+
+**Proof of Axiom 2 for conditional probability:**
+
+* Fix an event `\(E\)`, with `\(P(E) &gt;0\)`, and for any event `\(A\)`, define `\(\tilde{P}(A)=P(A|E)\)`.
+* If we define `\(A_1,A_2, \dots\)` as disjoint events, then:
+
+`$$\tilde{P}(A_1 \cup A_2 \cup \dots)=P(A_1 \cup A_2 \cup \dots |E)= \frac{P((A_1 \cap E) \cup (A_2 \cap E) \cup \dots)}{P(E)}$$`
+
+`$$= \frac{\sum_{j=1}^{\infty} P(A_j \cap E)}{P(E)}= \sum_{j=1}^\infty \tilde{P}(A_j) = \sum_{j=1}^\infty P(A_j|E)$$`
+Therefore `\(\tilde{P}\)` satisfies the axioms of probability.
+
+---
+
+.theorem-box[
+**Bayes' rule with extra conditioning.** Provided that `\(P(A\cap E)&gt;0\)` and `\(P(B\cap E)&gt;0\)`, we have
+`$$P(A|B,E) = \frac{P(B|A,E)P(A|E)}{P(B|E)}$$`
+]
+
+Note we also have 
+`$$P(A|B,E) = \frac{P(E|A,B)P(A|B)}{P(E|B)}$$`
+
+.theorem-box[
+**LOTP with extra conditioning.** Let `\(A_1, \dots, A_n\)` be a partition of the sample space `\(S\)` (i.e., the `\(A_i\)` are disjoint events and their union is `\(S\)`), with `\(P(A_i\cap E)&gt;0\)` for all `\(i\)`. Then:
+`$$P(B|E) = \sum_{i=1}^n P(B|A_i,E) P(A_i|E).$$`
+]
+
+---
+
+## Independence of events
+
+**Motivation:** Events are independent if the occurrence of one does not affect the occurrence of the other i.e.
+`$$P(A|B) = P(A)\Leftrightarrow \frac{P(A\cap B)}{P(B)} \Leftrightarrow P(A \cap B) = P(A)\cdot P(B)$$` 
+
+.definition-box[**Independence of two events.** Events `\(A\)` and `\(B\)` are independent if
+`$$P(A\cap B) = P(A)\cdot P(B)$$`
+If `\(P(A)&gt;0\)` and `\(P(B)&gt;0\)`, then this is equivalent to: `\(P(A|B) = P(A)\)` and also equivalent to `\(P(B|A) = P(B)\)`.
+]
+
+--
+ 
+**Example** Rolling two dice, let `\(A\)` be the event that the sum of the numbers is 7, `\(B\)` the event that the first die shows 3. These events are independent:
+`$$\frac{1}{36}=P(A\cap B) = P(A)\cdot P(B)=\frac{6}{36}\cdot \frac{1}{6} = \frac{1}{36}$$`
+
+
+---
+
+.theorem-box[
+If `\(A\)` and `\(B\)` are independent, then `\(A\)` and `\(B^c\)` are independent, `\(A^c\)` and `\(B\)` are independent, and `\(A^c\)` and `\(B^c\)` are independent.
+]
+
+--
+
+**Proof.** Let `\(A\)` and `\(B\)` be independent. If `\(P(A)=0\)`, then `\(A\)` is independent of every event, including `\(B^c\)`. Thus we assume `\(P(A) \neq 0\)`. Then
+
+`$$P(B^c|A) = 1-P(B|A) = 1 - P(B) = P(B^c)$$`
+so `\(A\)` and `\(B^c\)` are independent. The other results can be proven in a similar way.
+
+--
+
+.definition-box[**Independence of three events.** Events `\(A\)`, `\(B\)`, and `\(C\)` are said to be independent if all of the following hold:
+* `\(P(A \cap B) = P(A)P(B)\)` (pairwise independence of `\(A\)` and `\(B\)`)
+* `\(P(A \cap C) = P(A)P(C)\)` (pairwise independence of `\(A\)` and `\(C\)`)
+* `\(P(B \cap C) = P(B)P(C)\)` (pairwise independence of `\(B\)` and `\(C\)`)
+* `\(P(A \cap B \cap C) = P(A)P(B)P(C)\)`.
+]
+
+* You can define independence of any number of events similarly.
+
+* Pairwise independence doesn't imply independence of more events.
+
+---
+
+## Conditional independence of events
+
+.definition-box[**Conditional independence.** Events `\(A\)` and `\(B\)` are said to be conditionally independent given `\(E\)` if `$$P(A \cap B|E) = P(A|E)P(B|E).$$`
+]
+
+Independence is a tricky concept. Some notes:
+
+* Two events can be conditionally independent given `\(E\)` but not independent given `\(E^c\)`.
+
+* Conditional independence doesn't imply independence (see Example 2.5.10 page 65)
+
+* Independence doesn't imply conditional independence (Example 2.5.11 page 66)
+
+
+---
+
+## Additional Practice Problems*
+.footnote[*Solutions will be discussed in lecture, if time permits.]
+
+&lt;!--
+**1.** Rolling two dice, let `\(E\)` the event that the sum of the dice is 8 and `\(F\)` the event that the first die equals 4. Are `\(E\)` and `\(F\)` independent? Justify your answer.--&gt;
+
+**1.** A government agency has developed a scanner which determines whether a person is a terrorist. The scanner is fairly reliable; 99% of all scanned terrorists are identified as terrorists, and 95% of all upstanding citizens are identified as such. An informant tells the agency that exactly one passenger of 100 aboard an a airplane in which in you are seated is a terrorist. The agency decide to scan each passenger, and the shifty looking man sitting next to you tests positive. What are the chances that this man really is a terrorist?
+
+**2.** We have a test such that `\(P(T^+|HIV+) = 0.99\)` (sensitivity) and `\(P(T^-| HIV+) = 0.99\)` (specificity). Assume the prevalence of HIV is 0.001. 
+
+a. Given the first test is positive, event `\(T_1^+\)`, what is the probability of being HIV positive? 
+
+b. The policy for a positive HIV test is a follow-up confirmatory test. Given the 2nd test is positive, event `\(T_2^+\)`, what is the probability of being HIV positive? We can assume the new test is independent of the original test (given his disease status) and has the same sensitivity and specificity. 
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
