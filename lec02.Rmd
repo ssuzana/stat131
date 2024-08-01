@@ -291,9 +291,11 @@ Independence is a tricky concept. Some notes:
 
 * Two events can be conditionally independent given $E$ but not independent given $E^c$.
 
-* Conditional independence doesn't imply independence (see Example 2.5.10 page 65)
+* Conditional independence doesn't imply independence    
+(see Example 2.5.10 page 65)
 
-* Independence doesn't imply conditional independence (Example 2.5.11 page 66)
+* Independence doesn't imply conditional independence   
+(see Example 2.5.11 page 66)
 
 
 ---

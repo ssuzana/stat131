@@ -14,5 +14,10 @@ To be updated.
     <td width="30%">  <a href="lec01.html"> html </a> | <a href="lec01.pdf"> pdf </a> </td>
     <td width="50%">  Probability and Counting </td>
   </tr>
+    <tr>
+    <td width="20%">  2 </td>
+    <td width="30%">  <a href="lec02.html"> html </a> | <a href="lec02.pdf"> pdf </a> </td>
+    <td width="50%">  Conditional Probability</td>
+  </tr>
  </table>
 
