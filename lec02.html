@@ -52,7 +52,7 @@ You could think of every probability being conditional, whether or not it's writ
 ### Conditional Probability Definition
 
 .definition-box[
-Let `\(A\)` and `\(B\)` be events with `\(p(B)&gt;0\)`. The **conditional probability** of `\(A\)` given `\(B\)`, denoted by `\(p(A∣B)\)`, is defined as `$$p(A∣B) = \frac{p(A\cap B)}{p(B)}$$`
+Let `\(A\)` and `\(B\)` be events with `\(P(B)&gt;0\)`. The **conditional probability** of `\(A\)` given `\(B\)`, denoted by `\(P(A∣B)\)`, is defined as `$$P(A∣B) = \frac{P(A\cap B)}{P(B)}$$`
 ]
 
 
@@ -66,7 +66,7 @@ Here `\(A\)` is the event whose uncertainty we want to update, and `\(B\)` is th
 
 --
 
-We call `\(p(A)\)` the **prior probability** of `\(A\)` and `\(p(A|B)\)` the **posterior probability** of `\(A\)` (“prior” means before updating based on the evidence, and “posterior” means after updating based on the evidence).
+We call `\(P(A)\)` the **prior probability** of `\(A\)` and `\(P(A|B)\)` the **posterior probability** of `\(A\)` (“prior” means before updating based on the evidence, and “posterior” means after updating based on the evidence).
 
 See an interesting example at https://setosa.io/conditional/
 
@@ -94,11 +94,11 @@ Using the naive definition of probability and the multiplication rule:
 ---
 
 
-In general **it is NOT the case that `\(p(A|B) = p(B|A)\)`.**
+In general **it is NOT the case that `\(P(A|B) = P(B|A)\)`.**
 
    People get this confused all the time. For example, saying that there is a very high probability that an animal has four legs if it is a dog, is not the same as the probability that an animal is a dog if it has four legs.
 
-   In this case, the difference between `\(p(A|B)\)` and `\(p(B|A)\)` is obvious but there are cases where it is less obvious. 
+   In this case, the difference between `\(P(A|B)\)` and `\(P(B|A)\)` is obvious but there are cases where it is less obvious. 
 
    This mistake is made often enough in legal cases that it is sometimes called the prosecutor's fallacy. See Example 2.8.1 page 74.
 
@@ -139,9 +139,9 @@ Bayes’ rule has important implications and applications in probability and sta
 
 Let `\(A\)` and `\(B\)` be events. We may express `\(B\)` as `\(B = (B\cap A)\cup (B\cap A^c)\)`. Since `\(B\cap A\)` and `\(B\cap A^c\)` are clearly mutually exclusive, we have, by 2nd axiom of probability, `\(P(B)=P((B\cap A)\cup (B\cap A^c))=P(B\cap A) +  P(B\cap A^c)\)`
 
-`\(=P(B|A)P(A) + P(B|A)P(A^c)\)`. 
+`\(=P(B|A)P(A) + P(B|A^c)P(A^c)\)`. 
 
-Thus, ** `$$P(B)=P(B|A)P(A) + P(B|A)\left[1-P(A)\right]$$` **
+Thus, ** `$$P(B)=P(B|A)P(A) + P(B|A^c)\left[1-P(A)\right]$$` **
 
 ---
 
