@@ -27,5 +27,10 @@ A free online version of the book is available at http://probabilitybook.net.
     <td width="30%">  <a href="lec03.html"> html </a> | <a href="lec03.pdf"> pdf </a> </td>
     <td width="50%">  Random Variables and their Distributions </td>
   </tr>
+  <tr>
+    <td width="20%">  4 </td>
+    <td width="30%">  <a href="lec04.html"> html </a> | <a href="lec04.pdf"> pdf </a> </td>
+    <td width="50%"> Expectation </td>
+  </tr>
  </table>
 
