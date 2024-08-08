@@ -34,7 +34,7 @@ class: center, middle, inverse, title-slide
 One of the most important concepts in probability theory is that of the expectation of a random variable.
 
 .definition-box[The **expected value** (also called the **expectation** or **mean**) of  of a discrete r.v. `\(X\)` whose distinct possible values are `\(x_1, x_2, ...\)` is defined by:
-  `$$E(X) = \sum_{i=1}^{\infty}x_jP(X = x_i).$$`
+  `$$E(X) = \sum_{i=1}^{\infty}x_iP(X = x_i).$$`
 If the support is finite, then the formula can be replaced by a finite sum.     
 We can also write `\(E(X) = \displaystyle\sum_{x} \underbrace{x}_{\text{value }}\underbrace{P(X = x)}_{\text{PMF at }x}.\)`
 ]
@@ -386,7 +386,7 @@ The parameter `\(\lambda\)` can be interpreted as the rate of occurrence of thes
 
 ### Expectation - Poisson distribution
 
-Let `\(X \sim Pois(\lambda)\)`. Then `\(E(X)= \sum_{k=0}^{\infty} k P(x=k)=\sum_{k=0}^{\infty} e^{-\lambda}k\frac{\lambda^k}{k!}\)`
+Let `\(X \sim Pois(\lambda)\)`. Then `\(E(X)= \sum_{k=0}^{\infty} k P(X=k)=\sum_{k=0}^{\infty} e^{-\lambda}k\frac{\lambda^k}{k!}\)`
 `$$= e^{-\lambda} \sum_{k=1}^{\infty} k\frac{\lambda^k}{k!}= \lambda e^{-\lambda} \sum_{k=1}^{\infty} \frac{\lambda^{k-1}}{(k-1)!}=\lambda e^{-\lambda}e^{\lambda}= \color{red}{\lambda}.$$`
 --
 
