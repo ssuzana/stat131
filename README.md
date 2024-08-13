@@ -32,7 +32,7 @@ A free online version of the book is available at http://probabilitybook.net.
     <td width="30%">  <a href="lec04.html"> html </a> | <a href="lec04.pdf"> pdf </a> </td>
     <td width="50%"> Expectation </td>
   </tr>
-    <tr>
+  <tr>
     <td width="20%">  5 </td>
     <td width="30%">  <a href="lec05.html"> html </a> | <a href="lec05.pdf"> pdf </a> </td>
     <td width="50%"> Continuous random variables </td>
