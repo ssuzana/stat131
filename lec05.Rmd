@@ -122,7 +122,7 @@ where $c$ is a positive constant.
 ---
 
 **Solution.** **(a)** To find $c$, we can use Property 2 above, in particular
-$$1=\int_{-\infty}^{\infty} f_X(x)du= \int_{0}^{\infty} ce^{-x}du = c \bigg[-e^{-x}\bigg]_{0}^{\infty}=
+$$1=\int_{-\infty}^{\infty} f_X(x)dx= \int_{0}^{\infty} ce^{-x}dx = c \bigg[-e^{-x}\bigg]_{0}^{\infty}=
 c\big(-\lim_{x\rightarrow \infty} e^{-x} + e^0\big) =c$$
 $$\Rightarrow c=1$$
 --
@@ -319,7 +319,7 @@ For example, the area under the PDF curve to the left of $-2$, which is $P(Z \le
 --
 
 * **Symmetry of $Z$ and $-Z$:** If $Z\sim N(0,1),$ then $-Z\sim N(0,1)$ as well:
-$$P(-Z \leq z) = P(Z\geq -z) = 1 - P(Z < -z) = 1 - \Phi(-z) = \Phi (Z).$$
+$$P(-Z \leq z) = P(Z\geq -z) = 1 - P(Z < -z) = 1 - \Phi(-z) = \Phi (z).$$
 
 ---
 
