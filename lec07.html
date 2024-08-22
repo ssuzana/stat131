@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STAT 131 - Intro to Probability Theory</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Suzana Șerboi, Ph.D." />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/tamu-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="rutgers.css" type="text/css" />
+    <link rel="stylesheet" href="custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# STAT 131 - Intro to Probability Theory
+]
+.subtitle[
+## Lecture 7: Covariance, correlation, and transformations
+]
+.author[
+### Suzana Șerboi, Ph.D.
+]
+.institute[
+### Mathematics and Statistics, UCSC
+]
+
+---
+
+
+### Covariance
+
+Just as the mean and variance provided single-number summaries of the distribution of a single r.v., covariance is a single-number summary of the joint distribution of two r.v.s.
+
+.definition-box[The **covariance** between r.v.s `\(X\)` and `\(Y\)` is:
+`$$\operatorname{Cov}(X,Y) = E\left[(X-EX)(Y-EY)\right].$$`
+]
+
+If the differences `\((X-E(X))\)` and `\((Y-E(Y))\)` have different signs, then the covariance is negative, and if they have the same signs, then the covariance is positive.
+
+We can think of the covariance as measure of the tendency of two r.v.s to go up or down together, relative to their means:
+
+- positive covariance between `\(X\)` and `\(Y\)` indicates that when `\(X\)` goes up, `\(Y\)` also tends to go up, and
+- negative covariance indicates that when `\(X\)` goes up, `\(Y\)` tends to go down. 
+
+
+---
+
+Multiplying `\((X-EX)(Y-EY)\)` out and using linearity of expectation,
+
+`$$\operatorname{Cov}(X,Y) = E\left[(X-EX)(Y-EY)\right]$$`
+`$$=E\left[X\cdot Y-X\cdot EY - EX \cdot Y - EX\cdot EY\right]$$`
+`$$=E(X\cdot Y)-E(X\cdot \color{red}{EY}) - E(\color{red}{EX}\cdot Y) + E(\color{red}{EX}\cdot \color{red}{EY})$$`
+`$$=E(XY)-\color{red}{EY}\cdot EX -\color{red}{EX}\cdot EY + \color{red}{EX}\cdot \color{red}{EY}$$`
+`$$= E(XY) - EX\cdot EY.$$`
+Thus we have an equivalent expression:
+
+.theorem-box[
+The covariance between r.v.s `\(X\)` and `\(Y\)` is:
+`$$\operatorname{Cov}(X,Y)= E(XY) - E(X)E(Y).$$`
+]
+
+
+---
+
+
+.theorem-box[
+If `\(X\)` and `\(Y\)` are independent, then they are **uncorrelated** (i.e. have zero covariance).
+]
+
+
+**Proof.** We'll show this in the case where `\(X\)` and `\(Y\)` are continuous, with PDFs `\(f_X\)` and `\(f_Y\)`. The proof in the discrete case is the same, with PMFs instead of PDFs and sums instead of integrals.
+
+Since `\(X\)` and `\(Y\)` are independent, their joint PDF is the product of the marginal PDFs. That is, `\(f_{X,Y}(x,y)= f_X(x) f_Y(y)\)`.
+
+By 2D LOTUS,
+$$
+`\begin{aligned}
+E(X Y) &amp; =\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x y f_X(x) f_Y(y) d x d y \\
+&amp; =\int_{-\infty}^{\infty} y f_Y(y)\left(\int_{-\infty}^{\infty} x f_X(x) d x\right) d y \\
+&amp; =\int_{-\infty}^{\infty} x f_X(x) d x \int_{-\infty}^{\infty} y f_Y(y) d y \\
+&amp; =E(X) E(Y)
+\end{aligned}`
+$$
+`$$\text{Thus } \operatorname{Cov}(X, Y)=E(XY)-E(X)E(Y)=0.$$`
+
+---
+
+### Zero covariance doesn't imply independence
+
+The converse of this theorem is false: **just because `\(X\)` and `\(Y\)` are uncorrelated does not mean they are independent.** 
+
+For example, let `\(X \sim \mathcal{N}(0,1)\)`, and let `\(Y=X^2\)`. 
+
+Then `\(E(X Y)=E\left(X^3\right)=0\)` because odd moments of a symmetric distributions are 0.
+
+Thus `\(X\)` and `\(Y\)` are uncorrelated,
+`$$\operatorname{Cov}(X, Y)=E(X Y)-E(X) E(Y)=0-0=0.$$`
+But they are certainly not independent: `\(Y\)` is a function of `\(X\)`, so knowing `\(X\)` gives us perfect information about `\(Y\)` ( one is a function of the other.)
+
+
+---
+
+### Covariance is a measure of linear association
+
+Random variables can be dependent in nonlinear ways and still have zero covariance, as this example demonstrates. Bottom left: `\(X\)` and `\(Y\)` are independent, hence uncorrelated. Bottom right: `\(Y\)` is a deterministic function of `\(X\)`, but `\(X\)` and `\(Y\)` are uncorrelated.
+
+&lt;center&gt;
+&lt;img src="img/correlation-plots.png" alt="correlation-plots" width="420"/&gt;
+&lt;/center&gt;
+
+
+---
+
+
+The covariance has the following properties:
+
+(1) `\(\operatorname{Cov}(X,X)=\operatorname{Var}(X)\)`
+
+(2) `\(\operatorname{Cov}(X,Y)=\operatorname{Cov}(Y,X)\)`
+
+(3) `\(\operatorname{Cov}(X,c)=0\)` for any constant `\(c\)`.
+
+(4) `\(\operatorname{Cov}(aX,Y)=a\operatorname{Cov}(X,Y)\)` for any constant `\(a\)`.
+
+(5) `\(\operatorname{Cov}(X+Y,Z)=\operatorname{Cov}(X,Z)+\operatorname{Cov}(Y,Z)\)`
+
+(6) `\(\operatorname{Cov}(X+c,Y)=\operatorname{Cov}(X,Y)\)`
+
+(7) More generally, `\(\operatorname{Cov}(\sum_{i=1}^m a_i X_i,\sum_{j=1}^n b_j Y_j)= \sum_{i=1}^m \sum_{j=1}^n a_i b_j \operatorname{Cov}(X_i,Y_j)\)`.
+
+(8) `\(\operatorname{Cov}(X+Y,Z+W) = \operatorname{Cov}(X,Z)+\operatorname{Cov}(X,W)+\operatorname{Cov}(Y,Z)+\operatorname{Cov}(Y,W)\)`
+
+(9) `\(\operatorname{Var}(X \pm Y) = \operatorname{Var}(X) + \operatorname{Var}(Y) \pm 2\operatorname{Cov}(X,Y)\)`
+
+In the case when `\(X\)` and `\(Y\)` are independent r.v.s we have `\(\operatorname{Cov}(X,Y)=0\)` and thus
+`\(\operatorname{Var}(X \pm Y) = \operatorname{Var}(X) + \operatorname{Var}(Y)\)`.
+
+---
+
+### Correlation
+
+Since covariance is influenced by the units of measurement for `\(X\)` and `\(Y\)` — if `\(X\)` is measured in centimeters instead of meters, the covariance increases by a factor of 100 - a more interpretable, unitless measure called correlation is often preferred.
+
+.definition-box[The **correlation** between r.v.s `\(X\)` and `\(Y\)` is:
+`$$\operatorname{Corr}(X,Y)= \frac{\operatorname{Cov}(X,Y)}{\sqrt{\operatorname{Var}(X)\operatorname{Var}(Y))}} = \frac{\operatorname{Cov}(X,Y)}{\operatorname{SD}(X)\cdot \operatorname{SD}(Y)}.$$` 
+]
+
+Recall `\(SD(X)\)` denotes the standard deviation of `\(X\)`.
+
+Note that shifting and scaling r.v. has no effect on their correlation:
+
+`$$\operatorname{Corr}(cX,Y)= \frac{\operatorname{Cov}(cX,Y)}{\sqrt{c^2\operatorname{Var}(X)\operatorname{Var}(Y)}} = \operatorname{Corr}(X,Y).$$`
+
+---
+
+### Correlation bounds
+
+Correlation is easy to interpret because it is independent of the units of measurement and always falls within the range of `\(-1\)` to `\(1\)`.
+
+.theorem-box[
+ For any r.v.s `\(X\)` and `\(Y\)`,
+$$
+-1 \leq \operatorname{Corr}(X, Y) \leq 1
+$$
+]
+
+**Proof.**
+Without loss of generality we can assume `\(X\)` and `\(Y\)` have variance 1, since scaling does not change the correlation. 
+
+Let `\(\rho=\operatorname{Corr}(X, Y)=\operatorname{Cov}(X, Y)\)`. 
+
+Using the fact that variance is nonnegative, along with Property 9 of covariance, we have
+$$
+`\begin{aligned}
+&amp; \operatorname{Var}(X+Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)+2 \operatorname{Cov}(X, Y)=2+2 \rho \geq 0 \Rightarrow \rho \geq -1\\
+&amp; \operatorname{Var}(X-Y)=\operatorname{Var}(X)+\operatorname{Var}(Y)-2 \operatorname{Cov}(X, Y)=2-2 \rho \geq 0\Rightarrow \rho \leq 1
+\end{aligned}`
+$$
+
+Thus, `\(-1 \leq \rho \leq 1\)`.
+
+---
+
+**Example.** Rolling two dice, let `\(X\)` be the number shown on the first die, `\(Y\)` the one shown on the second die, `\(Z=X+Y\)` the sum of the two numbers. 
+
+Clearly, `\(X\)` and `\(Y\)` are independent, `\(\operatorname{Cov}(X, Y)=0, \operatorname{Corr}(X, Y)=0\)`.
+
+For `\(X\)` and `\(Z\)`,
+`$$\operatorname{Cov}(X, Z)=\operatorname{Cov}(X, X+Y)=\operatorname{Cov}(X, X)+\operatorname{Cov}(X, Y)$$`
+$$ =\operatorname{Var} X+0=\operatorname{Var} X$$
+`$$\operatorname{Var}(Z) =\operatorname{Var}(X+Y)=\operatorname{Var} X+\operatorname{Var} Y \quad \text { indep.! }$$`
+$$ =\operatorname{Var} X+\operatorname{Var} X=2 \operatorname{Var} X,$$
+since `\(\operatorname{Var}(X) = \operatorname{Var}(Y)\)` (as `\(X\)` and `\(Y\)` have the same distribution).
+
+`$$\operatorname{Corr}(X, Z)  =\frac{\operatorname{Cov}(X, Z)}{\operatorname{SD}(X) \cdot \operatorname{SD}(Z)}$$`
+`$$=\frac{\operatorname{Var} X}{\sqrt{\operatorname{Var} X} \cdot \sqrt{2 \operatorname{Var} X}}=\frac{1}{\sqrt{2}}.$$`
+
+---
+### Multivariate Normal distribution
+
+The Multivariate Normal is a continuous distribution that extends the Normal distribution to multiple dimensions. Instead of dealing with the complex joint PDF of the Multivariate Normal, we define it based on its connection to the standard Normal distribution.
+
+.definition-box[A `\(k\)`-dimensional random vector `\(\mathbf{X}= (X_1,\cdots,X_n)\)` is said to have a **Multivariate Normal (MVN) distribution** if every linear combination of the `\(X_j\)` has a Normal distribution. That is, we require:
+`$$t_1X_1+ \cdots +t_kX_k$$`
+to have a Normal distribution for any constants `\(t_1, \cdots, t_k\)`. An important special case is `\(k=2\)`, this distribution is called the **Bivariate Normal (BVN)**.
+]
+
+- If `\((X_1,\cdots,X_n)\)` is MVN, then the marginal distribution of `\(X_1\)` is Normal, since we can take `\(t_1\)` to be 1 and all other 0.
+- It is possible to have Normally distributed r.v.s `\(X_1,\cdots,X_n\)`, such that `\((X_1,\cdots,X_n)\)` is not Multivariate Normal.
+
+---
+
+### Parameters of an MVN random vector
+
+A Multivariate Normal distribution is fully specified by knowing the mean of each component, the variance of each component, and the covariance or correlation between any two components. Another way to say this is that the parameters of an MVN random vector `\((X_1,\ldots,X_k)\)` are as follows:
+
+- the mean vector `\((\mu_1,...,\mu_k)\)`, where `\(E(X_j) = \mu_j\)`;
+- the covariance matrix, which is the `\(k \times k\)` matrix of covariances between components, arranged so that the row `\(i\)`, column `\(j\)` entry is `\(\operatorname{Cov}(X_i,X_j)\)`.
+
+For example, in order to fully specify a Bivariate Normal distribution for `\((X, Y)\)`, we need to know five parameters:
+
+* the means `\(E(X)=\mu_X, E(Y)=\mu_Y\)`
+* the variances `\(\operatorname{Var}(X)=\sigma^2_X, \operatorname{Var}(Y)=\sigma^2_Y\)`
+* the correlation `\(\operatorname{Corr}(X,Y)=\rho\)`
+
+To find the Bivariate Normal joint PDF, we first need to talk about transformations of random variables.
+
+---
+
+### Transformations
+
+After applying a function to a random variable `\(X\)` or random vector `\(X\)`, we would like to find the distribution of the transformed random variable or joint distribution of the transformed random vector.
+
+Transformations of random variables appear all over the place in statistics. Kinds of transformations we’ll be looking at: unit conversion, sums, averages, extreme values.
+
+It is especially important to us to understand transformations because of the approach we’ve taken to learning about the named distributions. Starting from a few basic distributions, we have defined other distributions as transformations of these elementary building blocks, in order to understand how the named distributions are related to one another. 
+
+If we are only looking for the expectation of `\(g(X)\)`, LOTUS tells us that the PMF or PDF of `\(X\)` is enough for calculating `\(E(g(X))\)`. LOTUS also applies to functions of several r.v.s, as we learned in the previous chapter. If we need the full distribution of `\(g(X)\)`, not just its expectation, our approach depends on whether `\(X\)` is discrete or continuous.
+
+---
+
+### Discrete Case 
+
+In the discrete case, we get the PMF of `\(g(X)\)` by translating the event `\(g(X)=y\)` into an equivalent event involving `\(X\)`. 
+
+To do so, we look for all values `\(x\)` such that `\(g(x)=y\)`; as long as `\(X\)` equals any of these `\(x\)` 's, the event `\(g(X)=y\)` will occur. This gives the formula
+`$$P(g(X)=y)=\sum_{x: g(x)=y} P(X=x)$$`
+
+For a **one-to-one `\(g\)` **, the situation is particularly simple, because there is only one value of `\(x\)` such that `\(g(x)=y\)`, namely `\(g^{-1}(y)\)`. Then we can use
+** `$$P(g(X)=y)=P\left(X=g^{-1}(y)\right)$$` **
+to convert between the PMFs of `\(X\)` and `\(g(X)\)`. 
+
+For example, it is extremely easy to convert between the Geometric and First Success distributions.
+
+---
+
+### Continuous case
+
+In the continuous case, a universal approach is to start from the CDF of `\(g(X)\)`, and translate the event `\(g(X) \leq y\)` into an equivalent event involving `\(X\)`. 
+
+For general `\(g\)`, we may have to think carefully about how to express `\(g(X) \leq y\)` in terms of `\(X\)`, and there is no easy formula we can plug into. 
+
+But when ** `\(g\)` is continuous and strictly increasing**, the translation is easy: `\(g(X) \leq y\)` is the same as `\(X \leq g^{-1}(y)\)`, so
+** `$$F_{g(X)}(y)=P(g(X) \leq y)=P\left(X \leq g^{-1}(y)\right)=F_X\left(g^{-1}(y)\right)$$` **
+
+We can then differentiate with respect to `\(y\)` to get the PDF of `\(g(X)\)`. 
+
+This gives a one-dimensional version of the change of variables formula, which generalizes to invertible transformations in multiple dimensions.
+
+
+---
+
+### Change of variables in one dimension
+
+.theorem-box[
+Let `\(X\)` be a continuous r.v. with PDF `\(f_X\)`, and let `\(Y=g(X)\)`, where `\(g\)` is a differentiable and strictly increasing (or strictly decreasing) function. Then the PDF of `\(Y\)` is given by:
+** `$$f_Y(y)= f_X(x) \left| \frac{dx}{dy} \right|,$$` **
+where `\(x = g^{-1}(y).\)` The support of `\(Y\)` is all `\(g(x)\)` with `\(x\)` in the support of `\(X\)`.
+]
+
+**Proof.** Let `\(g\)` be strictly increasing. The CDF of `\(Y\)` is `\(F_Y(y)=P(Y \leq y)\)`
+`$$=P(g(X) \leq y)=P\left(X \leq g^{-1}(y)\right)=F_X\left(g^{-1}(y)\right)=F_X(x)$$`
+so by the chain rule, the PDF of `\(Y\)` is `\(f_Y(y)=f_X(x) \frac{d x}{d y}\)`.
+
+The proof for `\(g\)` strictly decreasing is analogous. In that case the PDF ends up as `\(-f_X(x) \frac{d x}{d y}\)`, which is nonnegative since `\(\frac{d x}{d y}&lt;0\)` if `\(g\)` is strictly decreasing. Using the absolute value `\(\left|\frac{d x}{d y}\right|\)` covers both cases.
+
+---
+
+**Example:** Let `\(X\)` be a continuous random variable with PDF
+`\(f_X(x)= 4x^3\)` for `\(0&lt;x\leq 1\)` and `\(0\)` otherwise. Now let `\(Y=1/X\)`. Find `\(f_Y(y)\)`.
+
+First note that the support of `\(Y\)` is `\([1,\infty)\)`. 
+
+Also, note that `\(g(x)=\frac{1}{x}\)` is a strictly decreasing and differentiable function on `\((0,1]\)`. 
+
+We have `\(g'(x)= −1/x^2\)`. 
+
+For any `\(y \in [1,\infty)\)`, ** `\(x=g^{−1}(y)\)` ** `\(=1/y\)` and `\(\frac{dx}{dy}=-\frac{1}{y^2}\)`. Then
+
+`$$f_Y(y)= f_X(x) \left| \frac{dx}{dy} \right|$$`
+`$$f_Y(y)= 4(1/y)^3 \left| −1/y^2 \right| = 4/y^5$$`
+**NOTE.** When finding the distribution of `\(Y\)`, be sure to:
+- Specify the support of `\(Y\)`.
+- Check the assumptions of the change of variables theorem carefully if you wish to
+apply it. 
+- Express your final answer for the PDF of `\(Y\)` as a function of `\(y\)`.
+
+---
+
+**Example (Log-Normal PDF).** Let `\(X \sim \mathcal{N}(0,1), Y=e^X\)`. In Chapter 6 we named the distribution of `\(Y\)` the Log-Normal. 
+We can use the change of variables formula to find the PDF of `\(Y\)`, since `\(g(x)=e^x\)` is strictly increasing. 
+
+To determine the support of `\(Y\)`, we just observe that as `\(x\)` ranges from `\(-\infty\)` to `\(\infty, e^x\)` ranges from 0 to `\(\infty\)`.
+
+Let `\(y=e^x\)`, so `\(x=\log y\)` and `\(d y / d x=e^x\)`. Then
+`$$f_Y(y)=f_X(x)\left|\frac{d x}{d y}\right|=\varphi(x) \frac{1}{e^x}=\varphi(\log y) \frac{1}{y}, \quad y&gt;0$$`
+
+We can get the same result by working from the definition of the CDF, translating the event `\(Y \leq y\)` into an equivalent event involving `\(X\)`. For `\(y&gt;0\)`,
+$$
+F_Y(y)=P(Y \leq y)=P\left(e^X \leq y\right)=P(X \leq \log y)=\Phi(\log y)
+$$
+so the PDF is again
+$$
+f_Y(y)=\frac{d}{d y} \Phi(\log y)=\varphi(\log y) \frac{1}{y}, \quad y&gt;0
+$$
+---
+
+**Example (Chi-Square PDF).** Let `\(X \sim \mathcal{N}(0,1), Y=X^2\)`. 
+
+The distribution of `\(Y\)` is an example of a Chi-Square distribution. 
+
+To find the PDF of `\(Y\)`, we can no longer apply the change of variables formula because `\(g(x)=x^2\)` is not strictly increasing (or decreasing). Instead we start from the CDF.
+
+Note the event `\(X^2 \leq y\)` is equivalent to the event `\(-\sqrt{y} \leq X \leq \sqrt{y}\)`. 
+
+Then
+`$$F_Y(y)=P\left(X^2 \leq y\right)=P(-\sqrt{y} \leq X \leq \sqrt{y})$$`
+`$$=\Phi(\sqrt{y})-\Phi(-\sqrt{y})=2 \Phi(\sqrt{y})-1$$`
+
+Thus
+`$$f_Y(y)=2 \varphi(\sqrt{y}) \cdot \frac{1}{2} y^{-1 / 2}=\varphi(\sqrt{y}) y^{-1 / 2}, \quad y&gt;0$$`
+
+---
+
+### `\(n\)`-dimensional Change of variables
+
+The change of variables formula generalizes to `\(n\)` dimensions, where it tells us how to use the joint PDF of a random vector `\(\mathbf{X}\)` to get the joint PDF of the transformed random vector `\(\mathbf{Y}=g(\mathbf{X})\)`. 
+
+The formula is analogous to the one-dimensional version, but it involves a multivariate generalization of the derivative called a Jacobian matrix.
+
+See sections A.6 and A.7 of the math appendix for more about Jacobians.
+
+
+**NOTE.** This is only for continuous r.v.s. For discrete r.v.s we can transform using the PMF directly. For example, let `\(X\)` be a positive r.v. and `\(Y = X^3\)`, then: `\(P(Y = y) = P(X = y^{1/3})\)`.
+
+
+---
+
+.theorem-box[**Change of variables.** Let `\(\mathbf{X}=\left(X_1, \ldots, X_n\right)\)` be a continuous random vector with joint `\(\mathrm{PDF} f_{\mathbf{X}}\)`. Let `\(g: A_0 \rightarrow B_0\)` be an invertible function, where `\(A_0\)` and `\(B_0\)` are open subsets of `\(\mathbb{R}^n, A_0\)` contains the support of `\(\mathbf{X}\)`, and `\(B_0\)` is the range of `\(g\)`.
+
+Let `\(\mathbf{Y}=g(\mathbf{X})\)`, and mirror this by letting `\(\mathbf{y}=g(\mathbf{x})\)`. Since `\(g\)` is invertible, we also have `\(\mathbf{X}=g^{-1}(\mathbf{Y})\)` and `\(\mathbf{x}=g^{-1}(\mathbf{y})\)`
+Suppose that all the partial derivatives `\(\frac{\partial x_i}{\partial y_j}\)` exist and are continuous, so we can form the Jacobian matrix
+`$$\frac{\partial \mathbf{x}}{\partial \mathbf{y}}=\left(\begin{array}{cccc}
+\frac{\partial x_1}{\partial y_1} &amp; \frac{\partial x_1}{\partial y_2} &amp; \cdots &amp; \frac{\partial x_1}{\partial y_n} \\
+\vdots &amp; &amp; &amp; \vdots \\
+\frac{\partial x_n}{\partial y_1} &amp; \frac{\partial x_n}{\partial y_2} &amp; \cdots &amp; \frac{\partial x_n}{\partial y_n}
+\end{array}\right)$$`
+
+Also assume that the determinant of this Jacobian matrix is never 0 . Then the joint PDF of `\(\mathbf{Y}\)` is
+`$$f_{\mathbf{Y}}(\mathbf{y})=f_{\mathbf{X}}\left(\mathbf{g}^{-\mathbf{1}}(\mathbf{y})\right) \cdot\bigg\vert \det{\frac{\partial \mathbf{x}}{\partial \mathbf{y}}}\bigg\vert,\quad \text { for } \mathbf{y} \in B_0.$$`
+]
+
+---
+
+**Example (Bivariate Normal joint PDF).** Let `\((Z, W)\)` be BVN with `\(\mathcal{N}(0,1)\)` marginals and `\(\operatorname{Corr}(Z, W)=\rho\)`. Assume that `\(-1&lt;\rho&lt;1\)` since otherwise the distribution is degenerate (with `\(Z\)` and `\(W\)` perfectly correlated).
+
+
+We can construct `\((Z, W)\)` as 
+`$$\begin{aligned}
+Z &amp; =X \\
+W &amp; =\rho X+\tau Y
+\end{aligned}$$`
+with `\(\tau=\sqrt{1-\rho^2}\)` and `\(X, Y\)` i.i.d. `\(\mathcal{N}(0,1)\)`. 
+
+We also need the inverse transformation. Solving `\(Z=X\)` for `\(X\)`, we have `\(X=Z\)`. Plugging this into `\(W=\rho X+\tau Y\)` and solving for `\(Y\)`, we have `\(X=Z\)` and `\(Y=-\frac{\rho}{\tau} Z+\frac{1}{\tau} W\)`.
+
+The Jacobian is
+`$$\frac{\partial(x, y)}{\partial(z, w)}=\left(\begin{array}{cc}
+\frac{\partial x}{\partial z} &amp; \frac{\partial x}{\partial w} \\
+\frac{\partial y}{\partial z} &amp; \frac{\partial y}{\partial w}
+\end{array}\right)
+=\left(\begin{array}{cc}
+1 &amp; 0 \\
+-\frac{\rho}{\tau} &amp; \frac{1}{\tau}
+\end{array}\right)$$`
+which has determinant `\(1 / \tau\)`. 
+
+---
+
+So by the change of variables formula,
+`$$\begin{aligned}
+f_{Z, W}(z, w) &amp; =f_{X, Y}(x, y) \cdot\left|\det{\frac{\partial(x, y)}{\partial(z, w)}}\right|, \\
+&amp; =\frac{1}{2 \pi} \exp \left(-\frac{1}{2}\left(x^2+y^2\right)\right)\cdot \frac{1}{\tau} \\
+&amp; =\frac{1}{2 \pi \tau} \exp \left(-\frac{1}{2}\left(z^2+\left(-\frac{\rho}{\tau} z+\frac{1}{\tau} w\right)^2\right)\right) \\
+&amp; =\frac{1}{2 \pi \tau} \exp \left(-\frac{1}{2 \tau^2}\left(z^2+w^2-2 \rho z w\right)\right), \text { for all real } z, w
+\end{aligned}$$`
+
+In the last step we multiplied things out and used the fact that `\(\rho^2+\tau^2=1\)`.
+
+
+---
+
+### Convolutions
+
+A **convolution** is a sum of independent random variables. The objective in this case is to find the distribution of `\(T = X + Y\)`, where `\(X\)` and `\(Y\)` are independent r.v.s whose distributions are known.
+
+We can solve this problems using MGFs, but what happens if a distribution we are working with doesn't have a defined MGF?
+
+.theorem-box[Let `\(X\)` and `\(Y\)` be independent r.v.s and `\(T = X + Y\)` be their sum.       
+If `\(X\)` and `\(Y\)` are discrete, then the PMF of `\(T\)` is:
+`$$P(T = t)= \sum_x P(Y = t-x)P(X=x) =\sum_y P(X = t-y)P(Y=y).$$`
+If `\(X\)` and `\(Y\)` are continuous, then the PDF of `\(T\)` is:
+`$$f_T(t)= \int_{-\infty}^{\infty} f_Y(t-x)f_X(x)dx =\int_{-\infty}^{\infty} f_X(t-y)f_Y(y)dy.$$`
+]
+
+NOTE that in both cases we are using LOTP.
+
+---
+
+**Example (Poisson convolution)**Let `\(X \sim \operatorname{Pois}(\lambda)\)` and `\(Y \sim \operatorname{Pois}(\mu)\)` be independent. Then
+$$
+`\begin{aligned}
+\mathfrak{p}_{X+Y}(k) &amp; =\sum_{i=-\infty}^{\infty} \mathfrak{p}_X(k-i) \cdot \mathfrak{p}_Y(i)=\sum_{i=0}^k \mathrm{e}^{-\lambda} \frac{\lambda^{k-i}}{(k-i)!} \cdot \mathrm{e}^{-\mu} \frac{\mu^i}{i!} \\
+&amp; =\mathrm{e}^{-(\lambda+\mu)} \frac{1}{k!} \sum_{i=0}^k\binom{k}{i} \cdot \lambda^{k-i} \cdot \mu^i=\mathrm{e}^{-(\lambda+\mu)} \frac{(\lambda+\mu)^k}{k!}
+\end{aligned}`
+$$
+from where we conclude `\(X+Y \sim \operatorname{Pois}(\lambda+\mu)\)`.
+
+**Example (Binomial convolution)**
+Let `\(X \sim \operatorname{Binom}(n, p)\)` and `\(Y \sim \operatorname{Binom}(m, p)\)` be independent. Then `\(X+Y \sim \operatorname{Binom}(n+m, p)\)` :
+`$$\begin{aligned}
+p_{X+Y}(k) &amp; =\sum_{i=0}^k\binom{n}{k-i} p^{k-i}(1-p)^{n-k+i} \cdot\binom{m}{i} p^i(1-p)^{m-i} \\
+&amp; =p^k \cdot(1-p)^{m+n-k} \underbrace{\sum_{i=0}^k\binom{n}{k-i} \cdot\binom{m}{i}}_{\binom{n+m}{k}}=\binom{n+m}{k} p^k \cdot(1-p)^{m+n-k}.
+\end{aligned}$$`
+
+
+---
+
+**Example (Exponential convolution)** 
+
+Let `\(X, Y \stackrel{\text { i.i.d. }}{\sim} \operatorname{Expo}(\lambda)\)`. Find the distribution of `\(T=X+Y\)`. 
+
+This is known as the `\(\operatorname{Gamma}(2, \lambda)\)` distribution. We will introduce the Gamma distribution later.
+
+**Solution:** 
+For `\(t&gt;0\)`, the convolution formula gives
+`$$f_T(t)=\int_{-\infty}^{\infty} f_Y(t-x) f_X(x) d x=\int_0^t \lambda e^{-\lambda(t-x)} \lambda e^{-\lambda x} d x$$`
+where we restricted the integral to be from 0 to `\(t\)` since we need `\(t-x&gt;0\)` and `\(x&gt;0\)` for the PDFs inside the integral to be nonzero.
+
+Simplifying, we have
+`$$f_T(t)=\lambda^2 \int_0^t e^{-\lambda t} d x=\lambda^2 e^{-\lambda t} \int_0^t 1 d x =\lambda^2 e^{-\lambda t}x\bigg|_0^t= \lambda^2 e^{-\lambda t}t, \text { for } t&gt;0$$`
+
+
+---
+### Beta Distribution
+
+Beta distribution is a continuous distribution on the interval `\((0,1)\)`. It is a generalization of the `\(\operatorname{Unif}(0,1)\)` distribution, allowing the PDF to be non-constant on `\((0, 1)\)`.
+
+.definition-box[
+An r.v. `\(X\)` is said to have the **Beta Distribution** with parameters `\(a\)` and `\(b\)`, where `\(a &gt; 0\)`, and `\(b&gt;0\)`, if its PDF is:
+ `$$f(x) = \frac{1}{\beta(a,b)}x^{a-1}(1-x)^{(b-1)}$$`
+for `\(0&lt;x&lt;1\)`, where the constant `\(\beta(a,b)\)` is chosen to make the PDF integrate 1. We write this as `\(X \sim Beta(a,b)\)`.
+]
+
+By definition then: `\(\beta(a,b) = \int_{0}^{1} x^{a-1}(1-x)^{b-1}dx\)` (beta integral)
+
+[Beta Wiki](https://en.wikipedia.org/wiki/Beta_distribution)
+
+---
+
+
+&lt;img src="lec07_files/figure-html/figures-side1-1.png" width="30%" /&gt;&lt;img src="lec07_files/figure-html/figures-side1-2.png" width="30%" /&gt;&lt;img src="lec07_files/figure-html/figures-side1-3.png" width="30%" /&gt;&lt;img src="lec07_files/figure-html/figures-side1-4.png" width="30%" /&gt;&lt;img src="lec07_files/figure-html/figures-side1-5.png" width="30%" /&gt;&lt;img src="lec07_files/figure-html/figures-side1-6.png" width="30%" /&gt;
+
+* Taking `\(a = b= 1\)`, the Beta(1,1) PDF is constant on `\((0,1)\)`, so the Beta(1,1) and Unif(0,1) distributions are the same. 
+* If `\(a&lt;1\)` and `\(b&lt;1\)`, the PDF is U-shaped and opens upward. If `\(a&gt;1\)` and `\(b&gt;1\)`, the PDF opens down.
+* If `\(a=b\)`, the PDF is symmetric about `\(1/2\)`. If `\(a&gt;b\)`, the PDF favors values larger than `\(1/2\)`, if `\(a &lt;b\)` the PDF favors values smaller than `\(1/2\)`.
+
+---
+### Gamma Distribution
+
+While the Exponential r.v. represents the waiting time for the first success under conditions of memorylessness, a Gamma r.v. represents the total waiting time for multiple successes.
+
+.definition-box[An r.v. `\(Y\)` is said to have the **Gamma Distribution** with parameters `\(a\)` and `\(\lambda\)`, where `\(a &gt; 0\)`, and `\(\lambda&gt;0\)`, if its PDF is:
+`$$f(y) = \frac{\lambda^a}{\Gamma(a)}y^{a-1}e^{-\lambda y}$$`
+for `\(y&gt;0\)`. We write this as `\(X \sim Gamma(a,\lambda)\)`.
+]
+
+Note that if `\(a=1\)` we have an `\(Expo(\lambda)\)`.
+
+[Gamma Dist Wiki](https://en.wikipedia.org/wiki/Gamma_distribution)
+
+---
+###  Gamma Function
+
+What is `\(\Gamma(a)\)`? Is the Gamma function != Gamma Distribution.
+
+.definition-box[
+The Gamma function `\(\Gamma\)` is defined by:
+`$$\Gamma(a) = \int_{0}^{\infty}x^{a-1} e^{-x} dx$$` 
+for real numbers `\(a&gt;0\)`.
+]
+
+Important properties:
+
+* `\(\Gamma(a+1) = a \Gamma(a)\)` for `\(a&gt;0\)`.
+* `\(\Gamma(n) = (n-1)!\)` if n is a positive integer
+* `\(\Gamma(1/2) = \sqrt{\pi}\)`
+* `\(\Gamma(a) = \int_{0}^{\infty} x^{a-1}e^{-x}dx\)`
+* `\(\int_{0}^{\infty} x^{a-1}e^{-\lambda x}dx = \frac{\Gamma(a)}{\lambda^a}\)` for `\(\lambda&gt;0.\)`
+
+
+---
+
+### Additional Practice Problems
+
+**1.** Let `\(X\)` and `\(Y\)` be i.i.d. `\(Unif(0, 1)\)`. Compute the covariance of `\(X + Y\)` and `\(X - Y\)`.
+
+**2.** Let `\(X \sim \operatorname{Exp}(\lambda)\)`, and `\(Y \sim \operatorname{Gamma}(2, \lambda)\)` be independent. Find the PDF of `\(X+Y\)`, `\(f_{X+Y}(t)\)`. How is `\(X+Y\)` distributed?
+
+**2.** Use a convolution integral to show that if `\(X \sim \mathcal{N}\left(\mu_1, \sigma^2\right)\)` and `\(Y \sim \mathcal{N}\left(\mu_2, \sigma^2\right)\)` are independent, then `\(T=X+Y \sim \mathcal{N}\left(\mu_1+\mu_2, 2 \sigma^2\right)\)` (to simplify the calculation, we are assuming that the variances are equal). 
+You can use a standardization (location-scale) idea to reduce to the standard Normal case before setting up the integral.
+
+Hint: Complete the square.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
