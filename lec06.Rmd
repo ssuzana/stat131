@@ -68,21 +68,21 @@ The PDF of $Z$ is maximized when $x=0$.
 
 Suppose that $X$ has the following discrete distribution:
 $$\begin{array}{ll}
-\operatorname{Pr}(X=1)=0.1, & \operatorname{Pr}(X=2)=0.2 \\
-\operatorname{Pr}(X=3)=0.3, & \operatorname{Pr}(X=4)=0.4
+\operatorname{P}(X=1)=0.1, & \operatorname{P}(X=2)=0.2 \\
+\operatorname{P}(X=3)=0.3, & \operatorname{P}(X=4)=0.4
 \end{array}$$
 
-The value 3 is a median of this distribution because $\operatorname{Pr}(X \leq 3)=0.6$, which is greater than $1 / 2$, and $\operatorname{Pr}(X \geq 3)=0.7$, which is also greater than $1 / 2$. Furthermore, 3 is the unique median of this distribution.
+The value 3 is a median of this distribution because $\operatorname{P}(X \leq 3)=0.6$, which is greater than $1 / 2$, and $\operatorname{P}(X \geq 3)=0.7$, which is also greater than $1 / 2$. Furthermore, 3 is the unique median of this distribution.
 
-**Example (A Discrete Distribution for Which the Median Is Not Unique).**
+**Example (A Discrete Distribution for Which the Median Is Not Unique)**
 
 Suppose that $X$ has the following discrete distribution:
 $$\begin{array}{ll}
-\operatorname{Pr}(X=1)=0.1, & \operatorname{Pr}(X=2)=0.4 \\
-\operatorname{Pr}(X=3)=0.3, & \operatorname{Pr}(X=4)=0.2
+\operatorname{P}(X=1)=0.1, & \operatorname{P}(X=2)=0.4 \\
+\operatorname{P}(X=3)=0.3, & \operatorname{P}(X=4)=0.2
 \end{array}$$
 
-Here, $\operatorname{Pr}(X \leq 2)=1 / 2$, and $\operatorname{Pr}(X \geq 3)=1 / 2$. Therefore, every value of $m$ in the closed interval $2 \leq m \leq 3$ will be a median of this distribution. The most popular choice of median of this distribution would be the midpoint 2.5 .
+Here, $\operatorname{P}(X \leq 2)=1 / 2$, and $\operatorname{P}(X \geq 3)=1 / 2$. Therefore, every value of $m$ in the closed interval $2 \leq m \leq 3$ will be a median of this distribution. The most popular choice of median of this distribution would be the midpoint 2.5 .
 
 ---
 
@@ -94,10 +94,10 @@ $$\int_0^m 4 x^3 d x=\int_m^1 4 x^3 d x=x^4\bigg|_m^1=1-m^4=\frac{1}{2}$$
 
 This number is $m=1 / 2^{1 / 4}$.
 
-**Example (A Continuous Distribution for Which the Median Is Not Unique).** Suppose that $X$ has a continuous distribution for which the PDF is as follows:
+**Example (A Continuous Distribution for Which the Median Is Not Unique)** Suppose that $X$ has a continuous distribution for which the PDF is as follows:
 $$f(x)= \begin{cases}1 / 2 & \text { for } 0 \leq x \leq 1 \\ 1 & \text { for } 2.5 \leq x \leq 3 \\ 0 & \text { otherwise }\end{cases}$$
 
-Here, for every value of $m$ in the closed interval $1 \leq m \leq 2.5$, $\operatorname{Pr}(X \leq m)=\operatorname{Pr}(X \geq m)=1 / 2$. Therefore, every value of $m$ in the interval $1 \leq m \leq 2.5$ is a median of this distribution.
+Here, for every value of $m$ in the closed interval $1 \leq m \leq 2.5$, $\operatorname{P}(X \leq m)=\operatorname{P}(X \geq m)=1 / 2$. Therefore, every value of $m$ in the interval $1 \leq m \leq 2.5$ is a median of this distribution.
 
 
 
@@ -223,7 +223,7 @@ Matching the coefficients of the two expansions, we get $E\left(X^n\right)=M^{(n
 ---
 
 **Geometric MGF.** For $X \sim Geom(p)$, 
-$$M(t) = E(e^{Xt}) = \sum_{k=0}^{\infty} e^{tk}q^kp = p \sum_{k=0}^{\infty} (e^{t}q)^k = \frac{p}{1-e^tq}$$ since $\sum_{k=0}^{\infty} (e^{t}q)^k$ is a geometric series with ratio $qt < 1$.
+$$M(t) = E(e^{Xt}) = \sum_{k=0}^{\infty} e^{tk}q^kp = p \sum_{k=0}^{\infty} (e^{t}q)^k = \frac{p}{1-e^tq}$$ since $\sum_{k=0}^{\infty} (e^{t}q)^k$ is a geometric series with ratio $e^tq$. It converges if $e^tq<1$.
 
 **Uniform MGF.** For $U \sim Unif(a,b)$, for $t \neq 0$
 
@@ -367,7 +367,7 @@ $$f_{X, W}(x, w)=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f_{X, Y, Z, W}(
 .definition-box[
 For continuous r.v.s $X$ and $Y$ with joint PDF $f_{X,Y}$, the **conditional PDF of $Y$ given $X=x$ ** is:
 ** $$f_{Y|X}(y|x) = \frac{f_{X,Y}(x,y)}{f_X(x)},$$ **
-for all x with $f_x(x) > 0$ and $f_{Y|X}(y|x) = 0$ for all $x$ with $f_x(x) = 0.$
+for all x with $f_X(x) > 0$ and $f_{Y|X}(y|x) = 0$ for all $x$ with $f_X(x) = 0.$
 This is viewed as a function of $y$ for **fixed $x$.**
 ]
 
@@ -389,7 +389,7 @@ $$f_{X,Y}(x, y)=\left\{\begin{array}{lc}
 \end{array}\right.$$
 
 Determine: (a) the conditional PDF of $Y$ for every given value of $X$, and        
-(b) $\operatorname{Pr}(Y \geq 2 \mid X=0.5)$.
+(b) $\operatorname{P}(Y \geq 2 \mid X=0.5)$.
 
 **Solution.** 
 .pull-left[
