@@ -12,4 +12,6 @@ A free online version of the book is available at <http://probabilitybook.net>.
 | 4       | [html](lec04.html)\| [pdf](lec04.pdf) | Expectation                              |
 | 5       | [html](lec05.html)\| [pdf](lec05.pdf) | Continuous random variables              |
 | 6       | [html](lec06.html)\| [pdf](lec06.pdf) | Moments, Joint distributions             |
-| 7       | [html](lec07.html)\| [pdf](lec07.pdf) | Covariance, correlation,andtransformations           |
+| 7       | [html](lec07.html)\| [pdf](lec07.pdf) | Covariance, correlation,and transformations|
+| 8       | [html](lec08.html)\| [pdf](lec08.pdf) |Conditional expectations and limit theorems|
+
